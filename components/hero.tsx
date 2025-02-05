@@ -2,27 +2,48 @@
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
+import { useEffect, useState } from "react";
 
+const backgroundImages = [
+    "/HomeBg.png",
+    "https://images.pexels.com/photos/302769/pexels-photo-302769.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "https://images.pexels.com/photos/323705/pexels-photo-323705.jpeg?auto=compress&cs=tinysrgb&w=800",
+];
 
 export function Hero() {
+    const [currentImage, setCurrentImage] = useState(0);
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setCurrentImage((prev) => (prev + 1) % backgroundImages.length);
+        }, 5000);
+        return () => clearInterval(interval);
+    }, []);
+
     return (
         <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
-            {/* Background Image with Zoom Animation */}
-            <motion.div
-                className="absolute inset-0 z-0"
-                initial={{ scale: 1.1 }}
-                animate={{ scale: 1 }}
-                transition={{ duration: 2, ease: "easeOut" }}
-            >
-                <Image
-                    src="/HomeBg.png"
-                    alt="Modern construction site"
-                    fill
-                    className="object-cover object-center"
-                    priority
-                />
-            </motion.div>
+            {/* Background Image with Smooth Animation */}
+            <div className="absolute inset-0 z-0 overflow-hidden">
+                <AnimatePresence mode="wait">
+                    <motion.div
+                        key={backgroundImages[currentImage]}
+                        initial={{ opacity: 0, scale: 1.1 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0, scale: 1.1 }}
+                        transition={{ duration: 3, ease: "easeInOut" }}
+                        className="absolute inset-0 w-full h-full"
+                    >
+                        <Image
+                            src={backgroundImages[currentImage]}
+                            alt="Background"
+                            fill
+                            className="object-cover object-center"
+                            priority
+                        />
+                    </motion.div>
+                </AnimatePresence>
+            </div>
 
             {/* Content */}
             <motion.div
