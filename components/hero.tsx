@@ -79,7 +79,7 @@ export function Hero() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 1.2, delay: 0.7, ease: [0.6, -0.05, 0.01, 0.99] }}
                 >
-                    Wir bauen Ihre Zukunft!
+                    WIR AKTIVIEREN
                 </motion.h1>
 
                 <motion.p
@@ -88,7 +88,7 @@ export function Hero() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 1.2, delay: 0.9, ease: [0.6, -0.05, 0.01, 0.99] }}
                 >
-                    Professionelle Bau- und Infrastrukturprojekte mit höchster Qualität und Zuverlässigkeit
+                    IHR IMMOBILIENPOTENZIAL!
                 </motion.p>
 
                 <motion.div
@@ -109,7 +109,7 @@ export function Hero() {
                         asChild
                         size="lg"
                         variant="outline"
-                        className="border-white text-white hover:bg-white/20 transition-all duration-300 ease-out hover:scale-105 hover:shadow-lg"
+                        className="border-white text-white :bg-white/20 transition-all duration-300 ease-out hover:scale-105 hover:shadow-lg"
                     >
                         <Link href="/projects">Projekte ansehen</Link>
                     </Button>

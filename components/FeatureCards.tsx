@@ -5,37 +5,37 @@ import { useEffect, useState } from "react";
 
 const services = [
     {
-        title: "Hochbau",
-        description: "Professionelle Planung und Ausführung von Gebäuden aller Art",
+        title:"Bauplanung",
+        description: "Ob Haus-, Gewerbe- oder Industriebau: Wir planen, konzipieren und optimieren Ihr Vorhaben gemeinsam mit Ihnen nach Ihren Vorstellungen.",
         icon: Building2,
         borderColor: "border-yellow-500",
         textColor: "text-black",
         hoverBg: "hover:bg-yellow-500 hover:text-white",
     },
     {
-        title: "Tiefbau",
-        description: "Infrastrukturprojekte und Grundlagenarbeiten",
+        title: "Bauausführung",
+        description: "Unser Netzwerk besteht aus langjährig erfahrenen Fachexperten rund um den Bau. Egal was Sie vorhaben - ob schlicht oder ambitioniert - wir setzen Ihre Idee in ein solides Bauprojekt um, das allen modernen Ansprüchen gerecht wird. ",
         icon: HardHat,
         borderColor: "border-yellow-500",
         textColor: "text-black",
         hoverBg: "hover:bg-yellow-500 hover:text-white",
     },
     {
-        title: "Renovierung",
-        description: "Modernisierung und Sanierung bestehender Gebäude",
+        title: "Baumanagement",
+        description: "Was wir bauen, das bauen wir mit ganzem Herzen. Die Verantwortung für unsere Aufträge überwachen wir mit modernen Tools und erfahrenem Sachverstand. ",
         icon: Hammer,
         borderColor: "border-yellow-500",
         textColor: "text-black",
         hoverBg: "hover:bg-yellow-500 hover:text-white",
     },
-    {
-        title: "Transport",
-        description: "Zuverlässiger Transport von Baumaterialien",
-        icon: Truck,
-        borderColor: "border-yellow-500",
-        textColor: "text-black",
-        hoverBg: "hover:bg-yellow-500 hover:text-white",
-    },
+    // {
+    //     title: "Transport",
+    //     description: "Zuverlässiger Transport von Baumaterialien",
+    //     icon: Truck,
+    //     borderColor: "border-yellow-500",
+    //     textColor: "text-black",
+    //     hoverBg: "hover:bg-yellow-500 hover:text-white",
+    // },
 ];
 
 export default function ServicePreview() {
@@ -66,9 +66,9 @@ export default function ServicePreview() {
                     animate={isVisible ? { opacity: 1, y: 0 } : {}}
                     transition={{ duration: 1 }}
                 >
-                    Unsere Leistungen
+                    UNSER SERVICE
                 </motion.h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 gap-x-16">
                     {services.map((service, index) => (
                         <motion.div
                             key={index}
@@ -98,7 +98,7 @@ export default function ServicePreview() {
                                 whileHover={{ scale: 1.02 }}
                                 transition={{ duration: 0.3 }}
                             >
-                                {service.description}
+                                {service.description.slice(0,55)}...
                             </motion.p>
                         </motion.div>
                     ))}

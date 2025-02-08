@@ -31,31 +31,41 @@ export function ContactForm() {
             <div className="grid grid-cols-1  sm:grid-cols-2 gap-4 w-full">
                 <div className="w-full flex flex-col">
                     <label htmlFor="name" className="block text-sm font-medium mb-2">
-                        Name
+                        Vorname
                     </label>
-                    <Input id="name" name="name" required placeholder="Ihr vollständiger Name" className="w-full" />
+                    <Input id="name" name="name" required placeholder="Ihr vollständiger Name" className="w-full"/>
+                </div>
+
+                <div className="w-full flex flex-col">
+                    <label htmlFor="name" className="block text-sm font-medium mb-2">
+                        Nachname
+                    </label>
+                    <Input id="name" name="name" required placeholder="Ihr vollständiger Name" className="w-full"/>
                 </div>
 
                 <div className="w-full flex flex-col">
                     <label htmlFor="email" className="block text-sm font-medium mb-2">
-                        E-Mail
+                        E-Mail-Adresse eingeben <span className={"text-red-600"}>*</span>
                     </label>
-                    <Input type="email" id="email" name="email" required placeholder="ihre.email@beispiel.de" className="w-full" />
+                    <Input type="email" id="email" name="email" required placeholder="ihre.email@beispiel.de"
+                           className="w-full"/>
+                </div>
+
+                <div className="w-full flex flex-col">
+                    <label htmlFor="phone" className="block text-sm font-medium mb-2">
+                        Betreff eingeben
+                    </label>
+                    <Input type="tel" id="phone" name="phone" placeholder="+49 123 456789" className="w-full"/>
                 </div>
             </div>
 
-            <div className="w-full flex flex-col">
-                <label htmlFor="phone" className="block text-sm font-medium mb-2">
-                    Telefon
-                </label>
-                <Input type="tel" id="phone" name="phone" placeholder="+49 123 456789" className="w-full" />
-            </div>
 
             <div className="w-full flex flex-col">
                 <label htmlFor="message" className="block text-sm font-medium mb-2">
-                    Nachricht
+                    Nachricht eingeben
                 </label>
-                <Textarea id="message" name="message" required rows={6} placeholder="Wie können wir Ihnen helfen?" className="w-full" />
+                <Textarea id="message" name="message" required rows={6} placeholder="Wie können wir Ihnen helfen?"
+                          className="w-full" />
             </div>
 
             <Button

@@ -18,10 +18,9 @@ export default function AboutPage() {
           <section className="max-w-4xl mx-auto px-6 py-12 text-center">
               <h1 className="text-4xl font-bold mb-6 text-brand-black">Über Uns</h1>
               <p className="text-gray-700 text-lg leading-relaxed mb-8">
-                  Willkommen bei <span className="font-semibold">Bakubau</span>! Wir sind ein engagiertes Team, das es
-                  sich zur Aufgabe gemacht hat,
-                  qualitativ hochwertige Bauprojekte zu realisieren. Mit unserer langjährigen Erfahrung und
-                  einem kreativen Ansatz setzen wir Ihre Ideen in die Realität um.
+                  Die m.o.s. projekt plan GmbH ist ein modernes Hoch-Bauunternehmen mit langer Erfahrung in Köln und Umgebung.
+
+                  Wir kümmern uns um alles, was Sie für Ihren Neubau oder Ihren Umbau inklusive umfangreiche Sanierungsvorhaben benötigen:
               </p>
 
               <div className="flex flex-col md:flex-row items-center gap-8">
@@ -35,9 +34,7 @@ export default function AboutPage() {
                   <div className="text-left max-w-md">
                       <h2 className="text-2xl font-semibold text-brand-black mb-4">Unsere Mission</h2>
                       <p className="text-gray-600 leading-relaxed">
-                          Unser Ziel ist es, innovative und nachhaltige Lösungen für Bauprojekte
-                          zu liefern. Wir legen Wert auf höchste Qualität, transparente Kommunikation
-                          und effiziente Umsetzung.
+                          Von der Immobilienentwicklung über die finanzielle Planung inkl. Förderungsberatung bis hin zur schlüsselfertigen Ausführung. Vom Einfamilienhaus über Mehrfamilienhäuser bis hin zu Großbau-Projekten stehen wir an Ihrer Seite und zu unserem Wort.
                       </p>
                       <Button className="mt-6 bg-brand-yellow text-brand-black hover:bg-brand-yellow/90">
                           Mehr Erfahren
