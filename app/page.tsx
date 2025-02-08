@@ -11,7 +11,7 @@ export default function Home() {
     return (
         <div className="space-y-20 pb-20">
             <Hero/>
-            <Stats/>
+            {/*<Stats/>*/}
             <FeatureCards/>
             {/*<ServicePreview/>*/}
             <ProjectPreview/>

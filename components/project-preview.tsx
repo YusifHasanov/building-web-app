@@ -1,61 +1,130 @@
-import Image from "next/image";
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
+"use client"
+
+import { useRef } from "react"
+import Image from "next/image"
+import Link from "next/link"
+import { motion, useScroll, useTransform } from "framer-motion"
+import { Button } from "@/components/ui/button"
 
 const projects = [
   {
-    title: "Wohnkomplex Berlin",
+    title: "Sanierungen, Modernisierungen",
     category: "Hochbau",
-    imageUrl: "https://kovaa.az/img/2023/12/1-3.jpg",
+    imageUrl: "/project_1_logo.png",
   },
   {
     title: "Brückensanierung Hamburg",
     category: "Infrastruktur",
-    imageUrl: "https://kovaa.az/img/2023/12/1-3.jpg",
+    imageUrl: "/project_2_logo.png",
   },
   {
     title: "Bürokomplex München",
     category: "Gewerbebau",
-    imageUrl: "https://kovaa.az/img/2023/12/1-3.jpg",
+    imageUrl: "/project_3_logo.png",
   },
-];
+  // {
+  //   title: "Bürokomplex München",
+  //   category: "Gewerbebau",
+  //   imageUrl: "/project_4_logo.png",
+  // },
+]
 
 export function ProjectPreview() {
+  const containerRef = useRef<HTMLDivElement>(null)
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"],
+  })
+
+  const y = useTransform(scrollYProgress, [0, 1], [100, -100])
+
+  // @ts-ignore
   return (
-      <section className="py-20 bg-gray-50">
-        <div className="container mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center mb-12 text-gray-800">
+      <section className="py-20 bg-gradient-to-b from-gray-50 to-gray-100 overflow-hidden">
+        <div ref={containerRef} className="container mx-auto px-4">
+          <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+              viewport={{ once: true }}
+              className="text-4xl font-bold text-center mb-12 text-gray-800"
+          >
             Unsere Projekte
-          </h2>
+          </motion.h2>
+
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {projects.map((project) => (
-                <div
+            {projects.map((project, index) => (
+                <motion.div
                     key={project.title}
-                    className="group relative overflow-hidden rounded-xl shadow-md transition-transform duration-300 hover:-translate-y-2 hover:shadow-xl"
+                    initial={{ opacity: 0, y: 50 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{
+                      duration: 0.8,
+                      delay: index * 0.2,
+                      ease: [0.16, 1, 0.3, 1],
+                    }}
+                    viewport={{ once: true }}
+                    whileHover={{ y: -8, scale: 1.02 }}
+                    className="relative overflow-hidden rounded-xl shadow-md hover:shadow-xl transition-shadow duration-500"
                 >
-                  <div className="relative h-72">
-                    <Image
-                        src={project.imageUrl || "/placeholder.svg"}
-                        alt={project.title}
-                        fill
-                        className="object-cover transition-transform duration-500 group-hover:scale-105"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent flex flex-col justify-end p-4 transition-colors duration-300 group-hover:from-black/70">
-                      <h3 className="text-xl font-bold text-white drop-shadow">
-                        {project.title}
-                      </h3>
-                      <p className="text-sm text-gray-200">{project.category}</p>
-                    </div>
-                  </div>
-                </div>
+                  <motion.div
+                      className="relative h-72"
+                      style={{ y: index * 50 * scrollYProgress }} //Corrected this line
+                  >
+                    <Image src={project.imageUrl || "/placeholder.svg"} alt={project.title} fill className="object-cover" />
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6, delay: 0.3 + index * 0.2 }}
+                        viewport={{ once: true }}
+                        className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent"
+                    >
+                      <div className="absolute inset-0 flex flex-col justify-end p-6">
+                        <motion.h3
+                            initial={{ opacity: 0, x: -20 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 0.6, delay: 0.4 + index * 0.2 }}
+                            viewport={{ once: true }}
+                            className="text-xl font-bold text-white drop-shadow-lg"
+                        >
+                          {project.title}
+                        </motion.h3>
+                        <motion.p
+                            initial={{ opacity: 0, x: -20 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 0.6, delay: 0.5 + index * 0.2 }}
+                            viewport={{ once: true }}
+                            className="text-sm text-gray-200 mt-2"
+                        >
+                          {project.category}
+                        </motion.p>
+                      </div>
+                    </motion.div>
+                  </motion.div>
+                </motion.div>
             ))}
           </div>
-          <div className="text-center mt-12">
-            <Button asChild>
-              <Link href="/projects">Alle Projekte ansehen</Link>
+
+          <motion.div
+              className="text-center mt-12"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.6 }}
+              viewport={{ once: true }}
+          >
+            <Button
+                asChild
+                className="relative overflow-hidden group transition-all duration-300 ease-out hover:scale-105"
+            >
+              <Link href="/projects">
+                <motion.span initial={{ y: "100%" }} animate={{ y: 0 }} transition={{ duration: 0.5 }}>
+                  Alle Projekte ansehen
+                </motion.span>
+              </Link>
             </Button>
-          </div>
+          </motion.div>
         </div>
       </section>
-  );
+  )
 }
+
