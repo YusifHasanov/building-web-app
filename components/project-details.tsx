@@ -1,4 +1,5 @@
-import { Carousel } from "@/components/ui/carousel"
+import {CarouselDemo} from "@/components/carousel";
+
 
 type Project = {
   title: string
@@ -14,7 +15,7 @@ export function ProjectDetails({ project }: { project: Project }) {
   return (
     <div className="container mx-auto px-4 py-12">
       <h1 className="text-4xl font-bold mb-6">{project.title}</h1>
-      <Carousel images={project.images} />
+      <CarouselDemo images={project.images} />
       <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8">
         <div className="md:col-span-2">
           <h2 className="text-2xl font-semibold mb-4">Projektbeschreibung</h2>

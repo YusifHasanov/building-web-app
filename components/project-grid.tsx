@@ -5,40 +5,40 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 
 const projects = [
   {
-    title: "U-Bahn Ausbau Frankfurt",
+    title: "Sanierungen, Modernisierungen",
     description: "Erweiterung des öffentlichen Nahverkehrsnetzes",
     category: "Tiefbau",
     status: "In Planung",
     imageUrl: "/project_1_logo.png",
     year: "2024",
-    slug: "u-bahn-frankfurt",
+    slug: "sanierungen-modernisierungen",
   },
   {
-    title: "Schulzentrum Stuttgart",
+    title: "Estricharbeiten",
     description: "Neubau eines modernen Bildungscampus",
     category: "Öffentlicher Bau",
     status: "Abgeschlossen",
     imageUrl: "/project_2_logo.png",
     year: "2023",
-    slug: "schulzentrum-stuttgart",
+    slug: "estricharbeiten",
   },
   {
-    title: "Logistikzentrum Leipzig",
+    title:  "Schlüsselfertiger Bau",
     description: "Großflächige Logistikimmobilie mit nachhaltiger Bauweise",
     category: "Industriebau",
     status: "In Bearbeitung",
     imageUrl: "/project_3_logo.png",
     year: "2024",
-    slug: "logistik-leipzig",
+    slug: "schlusselfertiger-bau",
   },
   {
-    title: "Logistikzentrum Leipzig",
+    title: "Diverse Kleinprojekte",
     description: "Großflächige Logistikimmobilie mit nachhaltiger Bauweise",
     category: "Industriebau",
     status: "In Bearbeitung",
     imageUrl: "/project_4_logo.png",
     year: "2024",
-    slug: "logistik-leipzig",
+    slug: "diverse-kleinprojekte",
   },
 ]
 

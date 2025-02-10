@@ -1,36 +1,87 @@
-import { ProjectDetails } from "@/components/project-details"
-import { notFound } from "next/navigation"
+import {ProjectDetails} from "@/components/project-details"
+import {notFound} from "next/navigation"
 
 // Bu fonksiyon gerçek bir API çağrısı veya veritabanı sorgusu ile değiştirilmelidir
 async function getProjectBySlug(slug: string) {
-  const projects = [
-    {
-      slug: "wohnkomplex-berlin",
-      title: "Wohnkomplex Berlin",
-      description: "Ein moderner Wohnkomplex mit 120 Wohneinheiten im Herzen von Berlin.",
-      client: "BerlinHomes GmbH",
-      location: "Berlin, Deutschland",
-      year: "2023",
-      services: ["Architektur", "Bauausführung", "Projektmanagement"],
-      images: [
-        "https://images.unsplash.com/photo-1435575653489-b0873ec954e2?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGJ1aWxkaW5nfGVufDB8fDB8fHww",
-        "https://plus.unsplash.com/premium_photo-1680582107403-04dfac02efc3?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NjV8fGJ1aWxkaW5nfGVufDB8fDB8fHww",
-        "https://images.unsplash.com/photo-1464938050520-ef2270bb8ce8?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTR8fGJ1aWxkaW5nfGVufDB8fDB8fHww",
-      ],
-    },
-    // Diğer projeler buraya eklenebilir
-  ]
 
-  return projects.find((project) => project.slug === slug)
+
+    const projects = [
+        {
+            slug: "sanierungen-modernisierungen",
+            title: "Sanierungen, Modernisierungen",
+            description: "Erweiterung des öffentlichen Nahverkehrsnetzes",
+            client: "BerlinHomes GmbH",
+            location: "Berlin, Deutschland",
+            year: "2024",
+            services: ["Architektur", "Bauausführung", "Projektmanagement"],
+            images: [
+                '/project_1_logo.png',
+                '/project_1_1.png',
+                '/project_1_2.png',
+            ],
+        },
+        {
+            slug: "estricharbeiten",
+            title: "Estricharbeiten",
+            description: "Neubau eines modernen Bildungscampus",
+            client: "BerlinHomes GmbH",
+            location: "Berlin, Deutschland",
+            year: "2023",
+            services: ["Architektur", "Bauausführung", "Projektmanagement"],
+            images: [
+                '/project_2_1.png',
+                '/project_2_2.png',
+                '/project_2_3.png',
+                '/project_2_4.png',
+                '/project_2_5.png',
+                '/project_2_6.png',
+
+
+            ],
+        },
+        {
+            slug: "schlusselfertiger-bau",
+            title: "Schlüsselfertiger Bau",
+            description: "Großflächige Logistikimmobilie mit nachhaltiger Bauweise",
+            client: "BerlinHomes GmbH",
+            location: "Berlin, Deutschland",
+            year: "2024",
+            services: ["Architektur", "Bauausführung", "Projektmanagement"],
+            images: [
+                '/project_3_1.png',
+                '/project_3_2.png',
+                '/project_3_3.png',
+                '/project_3_4.png',
+                '/project_3_5.png',
+                '/project_3_6.png',
+                '/project_3_7.png',
+                '/project_3_8.png',
+            ],
+        },
+        {
+            slug: "diverse-kleinprojekte",
+            title: "Diverse Kleinprojekte",
+            description: "Großflächige Logistikimmobilie mit nachhaltiger Bauweise",
+            client: "BerlinHomes GmbH",
+            location: "Berlin, Deutschland",
+            year: "2024",
+            services: ["Architektur", "Bauausführung", "Projektmanagement"],
+            images: [],
+        },
+    ]
+
+    return projects.find((project) => project.slug === slug)
 }
 
-export default async function ProjectPage({ params }: { params: { slug: string } }) {
-  const project = await getProjectBySlug(params.slug)
+export default async function ProjectPage({params}: { params: { slug: string } }) {
+    const project = await getProjectBySlug(params.slug)
 
-  if (!project) {
-    notFound()
-  }
+    if (!project) {
+        notFound()
+    }
 
-  return <ProjectDetails project={project} />
+    return <div className={"pt-10"}>
+        <ProjectDetails project={project}/>
+    </div>
 }
 

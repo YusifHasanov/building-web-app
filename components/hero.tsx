@@ -20,7 +20,7 @@ export function Hero() {
     useEffect(() => {
         const interval = setInterval(() => {
             setCurrentImage((prev) => (prev + 1) % backgroundImages.length)
-        }, 7000)
+        }, 3000)
         return () => clearInterval(interval)
     }, [])
 

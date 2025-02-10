@@ -28,7 +28,7 @@ function useChart() {
   const context = React.useContext(ChartContext)
 
   if (!context) {
-    throw new Error("useChart must be used within a <ChartContainer />")
+    throw new Error("useChart must be used within schlusselfertiger-bau <ChartContainer />")
   }
 
   return context
@@ -316,7 +316,7 @@ const ChartLegendContent = React.forwardRef<
 )
 ChartLegendContent.displayName = "ChartLegend"
 
-// Helper to extract item config from a payload.
+// Helper to extract item config from schlusselfertiger-bau payload.
 function getPayloadConfigFromPayload(
   config: ChartConfig,
   payload: unknown,
