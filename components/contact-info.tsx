@@ -6,10 +6,11 @@ export function ContactInfo() {
         <div>
           <h2 className="text-2xl font-bold mb-6">Hauptsitz</h2>
           <p>
-            Frankfurter Straße 720-726 <br />
-            51145 Köln, Nordrhein-Westfalen <br /><br />
+              50321 Bruhl<br />
+              Burg straße 3<br /><br />
             <strong>info@mos-projekt-plan.de</strong> <br />
-            Tel.: +49 (0) 172 35 33 246
+            Tel.: +4915213007777
+            Tel.: +4915755462991
           </p>
         </div>
 

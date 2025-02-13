@@ -53,7 +53,7 @@ export function Hero() {
 
             {/* Content */}
             <motion.div
-                className="relative z-20 container mx-auto px-4 text-center text-white"
+                className="relative z-20 container mx-auto px-6 md:px-4 text-center text-white"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 1.5, ease: "easeOut" }}
@@ -92,7 +92,7 @@ export function Hero() {
                 </motion.p>
 
                 <motion.div
-                    className="flex justify-center gap-4"
+                    className="flex flex-col sm:flex-row justify-center items-center gap-4 sm:gap-6 px-4 sm:px-0"
                     initial={{ opacity: 0, y: 50 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 1.2, delay: 1.1, ease: [0.6, -0.05, 0.01, 0.99] }}
@@ -100,7 +100,7 @@ export function Hero() {
                     <Button
                         asChild
                         size="lg"
-                        className="bg-brand-yellow text-brand-black hover:bg-brand-yellow/90 transition-all duration-300 ease-out hover:scale-105 hover:shadow-lg"
+                        className="bg-brand-yellow text-brand-black hover:bg-brand-yellow/90 transition-all duration-300 ease-out hover:scale-105 hover:shadow-lg w-full sm:w-auto"
                     >
                         <Link href="/contact">Kontakt aufnehmen</Link>
                     </Button>
@@ -109,7 +109,7 @@ export function Hero() {
                         asChild
                         size="lg"
                         variant="outline"
-                        className="border-white text-white :bg-white/20 transition-all duration-300 ease-out hover:scale-105 hover:shadow-lg"
+                        className="border-white text-white bg-white/20 transition-all duration-300 ease-out hover:scale-105 hover:shadow-lg w-full sm:w-auto"
                     >
                         <Link href="/projects">Projekte ansehen</Link>
                     </Button>
@@ -118,4 +118,3 @@ export function Hero() {
         </section>
     )
 }
-
