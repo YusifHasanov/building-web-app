@@ -36,7 +36,7 @@ const projects = [
     description: "Großflächige Logistikimmobilie mit nachhaltiger Bauweise",
     category: "Industriebau",
     status: "In Bearbeitung",
-    imageUrl: "/project_4_logo.png",
+    imageUrl: "/new_1.jpg",
     year: "2024",
     slug: "diverse-kleinprojekte",
   },

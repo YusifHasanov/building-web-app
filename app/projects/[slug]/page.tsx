@@ -66,7 +66,10 @@ async function getProjectBySlug(slug: string) {
             location: "Berlin, Deutschland",
             year: "2024",
             services: ["Architektur", "Bauausführung", "Projektmanagement"],
-            images: [],
+            images: [
+                '/new_1.jpg',
+                '/new2.jpg',
+            ],
         },
     ]
 
