@@ -10,19 +10,24 @@ const testimonials = [
         "Baku Bau hat unser Projekt mit höchster Professionalität und Qualität umgesetzt. Wir sind begeistert vom Ergebnis!",
     author: "Maria Schmidt",
     position: "CEO, TechCorp GmbH",
-    image: "https://images.unsplash.com/photo-1556157382-97eda2d62296?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fHByb2ZpbGUlMjBpbWFnZXxlbnwwfHwwfHx8MA%3D%3D",
+    image:
+        "https://images.unsplash.com/photo-1556157382-97eda2d62296?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fHByb2ZpbGUlMjBpbWFnZXxlbnwwfHwwfHx8MA%3D%3D",
   },
   {
-    quote: "Die Zusammenarbeit mit Baku Bau war hervorragend. Termintreue und Budgeteinhaltung waren vorbildlich.",
+    quote:
+        "Die Zusammenarbeit mit Baku Bau war hervorragend. Termintreue und Budgeteinhaltung waren vorbildlich.",
     author: "Thomas Müller",
     position: "Projektmanager, CityDev AG",
-    image: "https://images.unsplash.com/photo-1556157382-97eda2d62296?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fHByb2ZpbGUlMjBpbWFnZXxlbnwwfHwwfHx8MA%3D%3D",
+    image:
+        "https://images.unsplash.com/photo-1556157382-97eda2d62296?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fHByb2ZpbGUlMjBpbWFnZXxlbnwwfHwwfHx8MA%3D%3D",
   },
   {
-    quote: "Innovative Lösungen und erstklassige Handwerkskunst zeichnen Baku Bau aus. Absolut empfehlenswert!",
+    quote:
+        "Innovative Lösungen und erstklassige Handwerkskunst zeichnen Baku Bau aus. Absolut empfehlenswert!",
     author: "Laura Weber",
     position: "Architektin, DesignBuild GmbH",
-    image: "https://images.unsplash.com/photo-1556157382-97eda2d62296?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fHByb2ZpbGUlMjBpbWFnZXxlbnwwfHwwfHx8MA%3D%3D",
+    image:
+        "https://images.unsplash.com/photo-1556157382-97eda2d62296?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fHByb2ZpbGUlMjBpbWFnZXxlbnwwfHwwfHx8MA%3D%3D",
   },
 ];
 
@@ -61,18 +66,38 @@ export function Testimonials() {
           >
             Was unsere Kunden sagen
           </motion.h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+          {/*
+          Önemli kısım: items-stretch -> her sütun aynı yükseklikte uzar
+        */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
             {testimonials.map((testimonial, index) => (
                 <motion.div
                     key={index}
+                    className="flex" // Her bir kutu içinde flex kullanıyoruz
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={isVisible ? { opacity: 1, scale: 1 } : {}}
                     transition={{ duration: 0.6, delay: index * 0.2 }}
-                    whileHover={{ scale: 1.05, boxShadow: "0px 10px 30px rgba(0,0,0,0.1)" }}
+                    whileHover={{ scale: 1.05 }}
                 >
-                  <Card className="bg-white">
-                    <CardContent className="p-6">
-                      <p className="text-gray-600 italic mb-4">"{testimonial.quote}"</p>
+                  {/*
+                flex-grow ve h-full -> Tüm boşluğu kaplamasını sağlar,
+                böylece yükseklik eşitlenir.
+              */}
+                  <Card className="bg-white flex-grow">
+                    <CardContent className="p-6 h-full flex flex-col justify-between">
+                      <p
+                          className="text-gray-600 italic mb-4"
+                          style={{
+                            display: "-webkit-box",
+                            WebkitLineClamp: 3,
+                            WebkitBoxOrient: "vertical",
+                            overflow: "hidden",
+                          }}
+                      >
+                        "{testimonial.quote}"
+                      </p>
+
                       <div className="flex items-center">
                         <motion.div
                             initial={{ rotate: 0 }}
@@ -89,7 +114,9 @@ export function Testimonials() {
                         </motion.div>
                         <div>
                           <p className="font-semibold">{testimonial.author}</p>
-                          <p className="text-sm text-gray-500">{testimonial.position}</p>
+                          <p className="text-sm text-gray-500">
+                            {testimonial.position}
+                          </p>
                         </div>
                       </div>
                     </CardContent>

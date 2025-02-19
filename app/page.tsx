@@ -5,18 +5,25 @@ import {Testimonials} from "@/components/testimonials"
 import {Stats} from "@/components/stats"
 import {Partners} from "@/components/partners"
 import ServicePreview from "@/components/FeatureCards";
+import GoogleTranslate from "@/components/Translate";
+import GoogleTranslateDropdown from "@/components/Translate";
+import {LanguageSwitcher} from "@/components/LangSwitcher";
+
 
 export default function Home() {
     return (
         <div className="space-y-20 pb-20">
             <Hero/>
+
             {/*<Stats/>*/}
             <ServicePreview/>
             {/*<ServicePreview/>*/}
             <ProjectPreview/>
             <Testimonials/>
-            <Partners/>
+            {/*<Partners/>*/}
             <ContactCTA/>
+            {/*<GoogleTranslateDropdown/>*/}
+            {/*<LanguageSwitcher/>*/}
         </div>
     )
 }
