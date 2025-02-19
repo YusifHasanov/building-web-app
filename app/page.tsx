@@ -5,9 +5,8 @@ import {Testimonials} from "@/components/testimonials"
 import {Stats} from "@/components/stats"
 import {Partners} from "@/components/partners"
 import ServicePreview from "@/components/FeatureCards";
-import GoogleTranslate from "@/components/Translate";
-import GoogleTranslateDropdown from "@/components/Translate";
-import {LanguageSwitcher} from "@/components/LangSwitcher";
+
+import {LanguageSwitcher} from "@/components/language-switcher";
 
 
 export default function Home() {
@@ -24,6 +23,7 @@ export default function Home() {
             <ContactCTA/>
             {/*<GoogleTranslateDropdown/>*/}
             {/*<LanguageSwitcher/>*/}
+
         </div>
     )
 }

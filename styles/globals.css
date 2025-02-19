@@ -95,3 +95,6 @@ body {
 
 
 
+.skiptranslate{
+  display: none !important;
+}
