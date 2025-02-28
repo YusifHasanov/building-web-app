@@ -6,37 +6,48 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 const projects = [
   {
     title: "Sanierungen, Modernisierungen",
-    description: "Erweiterung des öffentlichen Nahverkehrsnetzes",
+    // description: "Erweiterung des öffentlichen Nahverkehrsnetzes",
     category: "Tiefbau",
     status: "In Planung",
-    imageUrl: "/project_1_logo.png",
+    imageUrl: "/prj1.jpeg",
     year: "2024",
     slug: "sanierungen-modernisierungen",
   },
   {
-    title: "Estricharbeiten",
-    description: "Neubau eines modernen Bildungscampus",
-    category: "Öffentlicher Bau",
-    status: "Abgeschlossen",
-    imageUrl: "/project_2_logo.png",
-    year: "2023",
-    slug: "estricharbeiten",
+    title: "60 Rudeltstraße",
+    description: "Freital, Sachsen",
+    category: "Tiefbau",
+    status: "In Planung",
+    imageUrl: "/prj2.jpeg",
+    year: " 29 Kas 2024 14:08:57",
+    slug: "sanierungen-modernisierungen",
   },
   {
-    title:  "Schlüsselfertiger Bau",
-    description: "Großflächige Logistikimmobilie mit nachhaltiger Bauweise",
+
+    title: "4A Johannisstraße",
+    description: "Freital, Sachsen",
+    category: "Öffentlicher Bau",
+    status: "Abgeschlossen",
+    imageUrl: "/prj3.jpeg",
+    year: "29 Kas 2024 14:51:25",
+    slug: "estricharbeiten",
+  },
+
+  {
+    title:  "1 Johannisstraße",
+    description: "Freital, Sachsen",
     category: "Industriebau",
     status: "In Bearbeitung",
-    imageUrl: "/project_3_logo.png",
-    year: "2024",
+    imageUrl: "/prj4.jpeg",
+    year: "23 Kas 2024 12:53:38",
     slug: "schlusselfertiger-bau",
   },
   {
     title: "Diverse Kleinprojekte",
-    description: "Großflächige Logistikimmobilie mit nachhaltiger Bauweise",
+    // description: "Großflächige Logistikimmobilie mit nachhaltiger Bauweise",
     category: "Industriebau",
     status: "In Bearbeitung",
-    imageUrl: "/new_1.jpg",
+    imageUrl: "/prj5.jpeg",
     year: "2024",
     slug: "diverse-kleinprojekte",
   },
@@ -48,7 +59,7 @@ export function ProjectGrid() {
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 gap-y-10">
           {projects.map((project) => (
-            <Link href={`/projects/${project.slug}`} key={project.slug}>
+            // <Link href={`/projects/${project.slug}`} key={project.slug}>
               <Card className="overflow-hidden group h-full">
                 <div className="relative h-48 overflow-hidden">
                   <Image
@@ -60,9 +71,9 @@ export function ProjectGrid() {
                 </div>
                 <CardHeader>
                   <div className="flex justify-between items-start mb-2">
-                    <Badge variant={project.status === "Abgeschlossen" ? "default" : "secondary"}>
-                      {project.status}
-                    </Badge>
+                    {/*<Badge variant={project.status === "Abgeschlossen" ? "default" : "secondary"}>*/}
+                    {/*  {project.status}*/}
+                    {/*</Badge>*/}
                     <span className="text-sm text-gray-500">{project.year}</span>
                   </div>
                   <CardTitle className="text-xl mb-2">{project.title}</CardTitle>
@@ -72,7 +83,7 @@ export function ProjectGrid() {
                   <Badge variant="outline">{project.category}</Badge>
                 </CardContent>
               </Card>
-            </Link>
+            // </Link>
           ))}
         </div>
       </div>

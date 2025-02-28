@@ -7,24 +7,23 @@ import {motion, useScroll, useTransform} from "framer-motion"
 import {Button} from "@/components/ui/button"
 import {useRouter} from "next/navigation";
 
-
 const projects = [
     {
-        title: "Sanierungen, Modernisierungen",
+        title: "60 Rudeltstraße",
         category: "Hochbau",
-        imageUrl: "/project_1_logo.png",
+        imageUrl: "/prj2.jpeg",
         slug: "sanierungen-modernisierungen",
     },
     {
-        title: "Estricharbeiten",
+        title: "4A Johannisstraße",
         category: "Infrastruktur",
-        imageUrl: "/project_2_logo.png",
+        imageUrl: "/prj3.jpeg",
         slug: "estricharbeiten",
     },
     {
-        title: "Schlüsselfertiger Bau",
+        title: "1 Johannisstraße",
         category: "Gewerbebau",
-        imageUrl: "/project_3_logo.png",
+        imageUrl: "/prj4.jpeg",
         slug: "schlusselfertiger-bau",
     }
 ]
