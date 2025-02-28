@@ -6,7 +6,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 const projects = [
   {
     title: "Sanierungen, Modernisierungen",
-    // description: "Erweiterung des öffentlichen Nahverkehrsnetzes",
+    description: "Freital, Sachsen",
     category: "Tiefbau",
     status: "In Planung",
     imageUrl: "/prj1.jpeg",
@@ -44,7 +44,7 @@ const projects = [
   },
   {
     title: "Diverse Kleinprojekte",
-    // description: "Großflächige Logistikimmobilie mit nachhaltiger Bauweise",
+    description: "Freital, Sachsen",
     category: "Industriebau",
     status: "In Bearbeitung",
     imageUrl: "/prj5.jpeg",
@@ -61,7 +61,7 @@ export function ProjectGrid() {
           {projects.map((project) => (
             // <Link href={`/projects/${project.slug}`} key={project.slug}>
               <Card className="overflow-hidden group h-full">
-                <div className="relative h-48 overflow-hidden">
+                <div className="relative  h-96 overflow-hidden">
                   <Image
                     src={project.imageUrl || "/placeholder.svg"}
                     alt={project.title}

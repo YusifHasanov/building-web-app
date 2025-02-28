@@ -79,9 +79,7 @@ export function ProjectPreview() {
                                     viewport={{once: true}}
                                     className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent"
                                 >
-                                    <div onClick={() => {
-                                        router.push(`/projects/${project.slug}`)
-                                    }} className="absolute inset-0 flex flex-col hover:cursor-pointer justify-end p-6">
+                                    <div className="absolute inset-0 flex flex-col hover:cursor-pointer justify-end p-6">
                                         <motion.h3
                                             initial={{opacity: 0, x: -20}}
                                             whileInView={{opacity: 1, x: 0}}
