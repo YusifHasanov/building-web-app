@@ -5,9 +5,11 @@ import Link from "next/link"
 import Image from "next/image"
 import { Menu, X } from "lucide-react"
 import { LanguageSwitcher } from "@/components/language-switcher"
+import { usePathname } from "next/navigation"
 
 export function Navigation() {
   const [isOpen, setIsOpen] = useState(false)
+  const pathname = usePathname() // Aktif path'i alıyoruz.
 
   return (
       <nav className="fixed top-0 w-full bg-white/95 backdrop-blur-sm z-50 border-b border-gray-100">
@@ -43,22 +45,25 @@ export function Navigation() {
 
             {/* Desktop menu */}
             <div className="hidden lg:flex lg:items-center lg:space-x-8">
-              <Link href="/" className="text-brand-black hover:text-brand-yellow transition-colors">
-                Home
-              </Link>
-              <Link href="/about" className="text-brand-black hover:text-brand-yellow transition-colors">
-                Über Uns
-              </Link>
-              <Link href="/services" className="text-brand-black hover:text-brand-yellow transition-colors">
-                Leistungen
-              </Link>
-              <Link href="/projects" className="text-brand-black hover:text-brand-yellow transition-colors">
-                Projekte
-              </Link>
-              <Link href="/contact" className="text-brand-black hover:text-brand-yellow transition-colors">
-                Kontakt
-              </Link>
-              {/* Language Switcher eklendi */}
+              {/** Menü öğelerini map ile yönetiyoruz */}
+              {[
+                { name: "Home", path: "/" },
+                { name: "Über Uns", path: "/about" },
+                { name: "Leistungen", path: "/services" },
+                { name: "Projekte", path: "/projects" },
+                { name: "Kontakt", path: "/contact" }
+              ].map((item) => (
+                  <Link
+                      key={item.path}
+                      href={item.path}
+                      className={`text-brand-black hover:text-brand-yellow transition-colors ${
+                          pathname === item.path ? "text-brand-yellow font-semibold" : ""
+                      }`}
+                  >
+                    {item.name}
+                  </Link>
+              ))}
+              {/* Language Switcher */}
               <div className="ml-4">
                 <LanguageSwitcher />
               </div>
@@ -69,42 +74,25 @@ export function Navigation() {
         {/* Mobile menu */}
         <div className={`lg:hidden ${isOpen ? "block" : "hidden"}`}>
           <div className="px-2 pt-2 pb-3 space-y-1 bg-white">
-            <Link
-                href="/"
-                className="block px-3 py-2 text-brand-black hover:text-brand-yellow transition-colors"
-                onClick={() => setIsOpen(false)}
-            >
-              Home
-            </Link>
-            <Link
-                href="/about"
-                className="block px-3 py-2 text-brand-black hover:text-brand-yellow transition-colors"
-                onClick={() => setIsOpen(false)}
-            >
-              Über Uns
-            </Link>
-            <Link
-                href="/services"
-                className="block px-3 py-2 text-brand-black hover:text-brand-yellow transition-colors"
-                onClick={() => setIsOpen(false)}
-            >
-              Leistungen
-            </Link>
-            <Link
-                href="/projects"
-                className="block px-3 py-2 text-brand-black hover:text-brand-yellow transition-colors"
-                onClick={() => setIsOpen(false)}
-            >
-              Projekte
-            </Link>
-            <Link
-                href="/contact"
-                className="block px-3 py-2 text-brand-black hover:text-brand-yellow transition-colors"
-                onClick={() => setIsOpen(false)}
-            >
-              Kontakt
-            </Link>
-            {/* Mobil menüye LanguageSwitcher eklendi */}
+            {[
+              { name: "Home", path: "/" },
+              { name: "Über Uns", path: "/about" },
+              { name: "Leistungen", path: "/services" },
+              { name: "Projekte", path: "/projects" },
+              { name: "Kontakt", path: "/contact" }
+            ].map((item) => (
+                <Link
+                    key={item.path}
+                    href={item.path}
+                    className={`block px-3 py-2 text-brand-black hover:text-brand-yellow transition-colors ${
+                        pathname === item.path ? "text-brand-yellow font-semibold" : ""
+                    }`}
+                    onClick={() => setIsOpen(false)}
+                >
+                  {item.name}
+                </Link>
+            ))}
+            {/* Mobile menu - Language Switcher */}
             <div className="px-3 py-2">
               <LanguageSwitcher />
             </div>

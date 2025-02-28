@@ -2,11 +2,8 @@ import {Hero} from "@/components/hero"
 import {ProjectPreview} from "@/components/project-preview"
 import {ContactCTA} from "@/components/contact-cta"
 import {Testimonials} from "@/components/testimonials"
-import {Stats} from "@/components/stats"
-import {Partners} from "@/components/partners"
 import ServicePreview from "@/components/FeatureCards";
 
-import {LanguageSwitcher} from "@/components/language-switcher";
 
 
 export default function Home() {
