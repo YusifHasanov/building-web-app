@@ -25,7 +25,7 @@ export default function AboutPage() {
 
               <div className="flex flex-col md:flex-row items-center gap-8">
                   <Image
-                      src="/team.jpg"
+                      src="/trans2.png"
                       alt="Unser Team"
                       width={400}
                       height={300}

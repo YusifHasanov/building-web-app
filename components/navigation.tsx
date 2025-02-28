@@ -19,7 +19,8 @@ export function Navigation() {
             <div className="flex-shrink-0 flex items-center">
               <Link href="/">
                 <Image
-                    src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/trans2-9Ea0kjnOIurFQVACPZjSNId0YgDXay.png"
+                    src="/trans2.png"
+                    // src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/trans2-9Ea0kjnOIurFQVACPZjSNId0YgDXay.png"
                     alt="Baku Bau GmbH Logo"
                     width={150}
                     height={50}
