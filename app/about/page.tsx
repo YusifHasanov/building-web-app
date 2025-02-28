@@ -18,7 +18,7 @@ export default function AboutPage() {
           <section className="max-w-4xl mx-auto px-6 py-12 text-center">
               <h1 className="text-4xl font-bold mb-6 text-brand-black">Über Uns</h1>
               <p className="text-gray-700 text-lg leading-relaxed mb-8">
-                  Die m.o.s. projekt plan GmbH ist ein modernes Hoch-Bauunternehmen mit langer Erfahrung in Köln und Umgebung.
+                  Die Baku Bau projekt plan GmbH ist ein modernes Hoch-Bauunternehmen mit langer Erfahrung in Köln und Umgebung.
 
                   Wir kümmern uns um alles, was Sie für Ihren Neubau oder Ihren Umbau inklusive umfangreiche Sanierungsvorhaben benötigen:
               </p>

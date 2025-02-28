@@ -25,15 +25,15 @@ export function Footer() {
             <ul className="space-y-3">
               <li className="flex items-center">
                 <Phone className="h-5 w-5 mr-2 text-brand-yellow" />
-                <span>+49 123 456789</span>
+                <span>+49 1521 3007777</span>
               </li>
               <li className="flex items-center">
                 <Mail className="h-5 w-5 mr-2 text-brand-yellow" />
-                <span>info@bakubau.de</span>
+                <span>info@mos-projekt-plan.de</span>
               </li>
               <li className="flex items-center">
                 <MapPin className="h-5 w-5 mr-2 text-brand-yellow" />
-                <span>Musterstraße 123, 12345 Berlin</span>
+                <span>50321 Bruhl Burg straße 3</span>
               </li>
             </ul>
           </div>
