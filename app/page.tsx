@@ -15,7 +15,7 @@ export default function Home() {
             <ServicePreview/>
             {/*<ServicePreview/>*/}
             <ProjectPreview/>
-            <Testimonials/>
+            {/*<Testimonials/>*/}
             {/*<Partners/>*/}
             <ContactCTA/>
             {/*<GoogleTranslateDropdown/>*/}
