@@ -43,7 +43,7 @@ export default function ProjectDetails({ categories, images, projectDetails }: P
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex justify-between h-16">
                         <div className="flex items-center">
-                            <Image src="/logo.png" alt="Baku Bau Projekt Plan GmbH" width={120} height={50} className="object-contain" />
+                            <Image src="/logo.png" alt="Baku Bau" width={120} height={50} className="object-contain" />
                         </div>
                         <div className="hidden sm:flex sm:space-x-8 items-center">
                             {["UNTERNEHMEN", "LEISTUNGEN", "KARRIERE", "PROJEKTE", "KONTAKT"].map((item) => (

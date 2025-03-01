@@ -3,13 +3,17 @@ import "./globals.css"
 import {Navigation} from "@/components/navigation"
 import {Footer} from "@/components/footer"
 import type React from "react"
-import Script from "next/script"; // Import React
+import Script from "next/script";
+import Head from "next/head"; // Import React
 
 const inter = Inter({subsets: ["latin"], variable: "--font-inter"})
 
 export const metadata = {
     title: "Baku Bau GmbH - Wir bauen Ihre Zukunft!",
     description: "Professionelle Bau- und Infrastrukturprojekte von Baku Bau GmbH",
+    icons:{
+        icon: "/favicon.png"
+    }
 }
 
 export default function RootLayout({
