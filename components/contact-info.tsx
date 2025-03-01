@@ -28,8 +28,8 @@ export function ContactInfo() {
                 <p>
                     Wenn Sie sich auf eine Stelle im Bereich Bauwesen bewerben möchten, senden Sie bitte einen Lebenslauf mit Kontaktinformationen an: <br />
                     <strong>
-                        <a href="mailto:info@mos-projekt-plan.de" className="text-blue-500 hover:underline flex items-center gap-2">
-                            <Mail className="w-5 h-5" /> info@mos-projekt-plan.de
+                        <a href="mailto:info@bakubau.de" className="text-blue-500 hover:underline flex items-center gap-2">
+                            <Mail className="w-5 h-5" /> info@bakubau.de
                         </a>
                     </strong>
                 </p>
