@@ -7,7 +7,6 @@ import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion"
 import { Button } from "@/components/ui/button"
 
 const backgroundImages = [
-    "/HomeBg.png",
    "/slide1.webp",
    "/slide2.jpg",
    "/slide3.jpg",
