@@ -3,7 +3,7 @@ import Image from "next/image"
 export function ContactHero() {
     return (
         <section className="relative h-[40vh] mt-20 flex items-center justify-center">
-            <Image src="/Düsseldorf_Flughafen_Baustelle.jpg" alt="Contact Us" fill className="object-cover"
+            <Image src="/contsct.jpg" alt="Contact Us" fill className="object-cover"
                    priority/>
             <div className="absolute inset-0 bg-black/60"/>
             <div className="relative z-10 text-center text-white">
