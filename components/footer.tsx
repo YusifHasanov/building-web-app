@@ -1,6 +1,7 @@
 import Image from "next/image"
 import Link from "next/link"
 import { Phone, Mail, MapPin } from "lucide-react"
+import {ImGift} from "react-icons/im";
 
 export function Footer() {
   return (
@@ -90,7 +91,8 @@ export function Footer() {
 
         <div className="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400">
           <p>&copy; {new Date().getFullYear()} Baku Bau GmbH. Alle Rechte vorbehalten.</p>
-          <p>&copy;  Site by Jeykhun Imanov Studio</p>
+          <div className={'flex justify-center mt-2'}>
+            <div className={"mr-3"}> Site by</div> <Image src={'/four.png'} alt={"four.png"} height={30} width={60} /> </div>
         </div>
       </div>
     </footer>
