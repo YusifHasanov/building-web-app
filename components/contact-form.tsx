@@ -47,7 +47,7 @@ export function ContactForm() {
                     <label htmlFor="email" className="block text-sm font-medium mb-2">
                         E-Mail-Adresse eingeben <span className={"text-red-600"}>*</span>
                     </label>
-                    <Input type="email" id="email" name="email" required placeholder="ihre.email@beispiel.de"
+                    <Input type="email" id="email" name="email" required placeholder="info@bakubau.de"
                            className="w-full"/>
                 </div>
 
@@ -55,7 +55,7 @@ export function ContactForm() {
                     <label htmlFor="phone" className="block text-sm font-medium mb-2">
                         Betreff eingeben
                     </label>
-                    <Input type="tel" id="phone" name="phone" placeholder="+49 123 456789" className="w-full"/>
+                    <Input type="tel" id="phone" name="phone" placeholder="+49 1521 3007777" className="w-full"/>
                 </div>
             </div>
 
