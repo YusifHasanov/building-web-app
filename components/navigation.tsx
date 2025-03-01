@@ -57,7 +57,7 @@ export function Navigation() {
                   <Link
                       key={item.path}
                       href={item.path}
-                      className={`text-brand-black hover:text-brand-yellow transition-colors ${
+                      className={`text-brand-black capitalize hover:text-brand-yellow transition-colors ${
                           pathname === item.path ? "text-brand-yellow font-semibold" : ""
                       }`}
                   >
