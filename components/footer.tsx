@@ -29,7 +29,7 @@ export function Footer() {
               </li>
               <li className="flex items-center">
                 <Mail className="h-5 w-5 mr-2 text-brand-yellow" />
-                <span>info@mos-projekt-plan.de</span>
+                <span>info@bakubau.de</span>
               </li>
               <li className="flex items-center">
                 <MapPin className="h-5 w-5 mr-2 text-brand-yellow" />
