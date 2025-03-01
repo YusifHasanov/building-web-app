@@ -91,7 +91,7 @@ export function Footer() {
 
         <div className="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400">
           <p>&copy; {new Date().getFullYear()} Baku Bau GmbH. Alle Rechte vorbehalten.</p>
-          <div className={'flex justify-center mt-2'}>
+          <div className={'flex justify-end mt-2'}>
             <div className={"mr-3"}> Site by</div> <Image src={'/four.png'} alt={"four.png"} height={30} width={60} /> </div>
         </div>
       </div>
