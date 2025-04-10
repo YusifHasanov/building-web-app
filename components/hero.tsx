@@ -6,21 +6,21 @@ import Link from "next/link"
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion"
 import { Button } from "@/components/ui/button"
 
-const backgroundImages = [
-   "/slide1.webp",
-   "/slide2.jpg",
-   "/slide3.jpg",
-   "/slide4.jpg",
-]
+// const backgroundImages = [
+//    "/slide1.webp",
+//    "/slide2.jpg",
+//    "/slide3.jpg",
+//    "/slide4.jpg",
+// ]
 
-export function Hero() {
+export function Hero({sliderData} : any) {
     const [currentImage, setCurrentImage] = useState(0)
     const { scrollY } = useScroll()
     const y = useTransform(scrollY, [0, 500], [0, 150])
 
     useEffect(() => {
         const interval = setInterval(() => {
-            setCurrentImage((prev) => (prev + 1) % backgroundImages.length)
+            setCurrentImage((prev) => (prev + 1) % sliderData.length)
         }, 3000)
         return () => clearInterval(interval)
     }, [])
@@ -31,7 +31,7 @@ export function Hero() {
             <motion.div className="absolute inset-0 z-0" style={{ y }}>
                 <AnimatePresence initial={false}>
                     <motion.div
-                        key={backgroundImages[currentImage]}
+                        key={sliderData[currentImage].image_url}
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
@@ -39,7 +39,7 @@ export function Hero() {
                         className="absolute inset-0 w-full h-full"
                     >
                         <Image
-                            src={backgroundImages[currentImage] || "/placeholder.svg"}
+                            src={sliderData[currentImage].image_url || "/placeholder.svg"}
                             alt="Background"
                             fill
                             className="object-cover object-center"
