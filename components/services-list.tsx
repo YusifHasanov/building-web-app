@@ -4,10 +4,11 @@ import { Building2, Hammer, HardHat, Truck, Shield, CheckCircle } from "lucide-r
 import { RouteIcon as Road } from "lucide-react";
 import { BASE_URL } from "@/const";
 
-// Service tipini tanımlama
+
 interface Feature {
     item?: string;
 }
+
 
 interface Service {
     id: number;
