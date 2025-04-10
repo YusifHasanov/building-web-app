@@ -2,17 +2,14 @@ import Image from "next/image"
 
 export function ContactHero() {
     return (
-        <section className="relative h-[40vh] mt-20 flex items-center justify-center">
-            <Image src="/contsct.jpg" alt="Contact Us" fill className="object-cover"
-                   priority/>
-            <div className="absolute inset-0 bg-black/60"/>
-            <div className="relative z-10 text-center text-white">
-                <h1 className="text-4xl md:text-5xl font-bold mb-4">Kontaktieren Sie uns</h1>
-                <p className="text-xl max-w-2xl mx-auto">
-                    Wir freuen uns darauf, von Ihnen zu hören und Ihr nächstes Bauprojekt zu besprechen.
-                </p>
-            </div>
-        </section>
+        <div className="absolute inset-0 z-0 overflow-hidden">
+            <img
+                src="/contsct.jpg"
+                alt="Baku Bau Construction"
+                className="w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-black/60"></div>
+        </div>
     )
 }
 
