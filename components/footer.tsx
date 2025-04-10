@@ -27,7 +27,8 @@ export function Footer() {
                         <ul className="space-y-3">
                             <li className="flex items-center">
                                 <Phone className="h-5 w-5 mr-2 text-brand-yellow"/>
-                                <span>+49 1521 3007777</span>
+                                {/*<span>+49 1521 3007777</span>*/}
+                                <span>+49 1521 3000777</span>
                             </li>
                             <li className="flex items-center">
                                 <Mail className="h-5 w-5 mr-2 text-brand-yellow"/>

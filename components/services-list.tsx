@@ -21,12 +21,12 @@ const services = [
     icon: Hammer,
     features: ["Fassadensanierung", "Energetische Sanierung", "Innenausbau", "Modernisierung"],
   },
-  {
-    title: "Infrastruktur",
-    description: "Entwicklung und Umsetzung von Infrastrukturprojekten für die Anforderungen von morgen.",
-    icon: Road,
-    features: ["Verkehrsinfrastruktur", "Ver- und Entsorgung", "Brückenbau", "Tunnelbau"],
-  },
+  // {
+  //   title: "Infrastruktur",
+  //   description: "Entwicklung und Umsetzung von Infrastrukturprojekten für die Anforderungen von morgen.",
+  //   icon: Road,
+  //   features: ["Verkehrsinfrastruktur", "Ver- und Entsorgung", "Brückenbau", "Tunnelbau"],
+  // },
   {
     title: "Transport",
     description: "Zuverlässiger Transport von Baumaterialien und Baumaschinen mit eigenem Fuhrpark.",
