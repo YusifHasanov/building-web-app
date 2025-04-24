@@ -4,6 +4,7 @@ import {ContactCTA} from "@/components/contact-cta"
 import {Testimonials} from "@/components/testimonials"
 import ServicePreview from "@/components/FeatureCards";
 import {BASE_URL} from "@/const";
+import HomeContent from "@/components/HomeContent";
 
 // Add specific metadata for the homepage
 export const metadata = {
@@ -16,39 +17,8 @@ export const metadata = {
     // twitter: { ... override specific fields ... },
 };
 
-async function fetchSliderData() {
-    const timestamp = new Date().getTime(); // Cache önlemek için timestamp ekle
-    const response = await fetch(`${BASE_URL}/slider-images?_t=${timestamp}`, {
-        next: {revalidate: 60} // Sayfa her istek yapıldığında yeniden doğrula
-    });
-
-    if (!response.ok) {
-        throw new Error('Slider verileri alınamadı');
-    }
-
-    return response.json();
-}
-
-export default async function Home() {
-    const {data: sliderData} = await fetchSliderData();
-
-    console.log(sliderData)
-    return (
-        <div className="space-y-20 pb-20">
-            <Hero sliderData={sliderData}/>
-
-            {/*<Stats/>*/}
-            <ServicePreview/>
-            {/*<ServicePreview/>*/}
-            <ProjectPreview/>
-            {/*<Testimonials/>*/}
-            {/*<Partners/>*/}
-            <ContactCTA/>
-            {/*<GoogleTranslateDropdown/>*/}
-            {/*<LanguageSwitcher/>*/}
-
-        </div>
-    )
+export default function Page() {
+    return <HomeContent />;
 }
 
 
