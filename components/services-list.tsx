@@ -38,7 +38,6 @@ export async function ServicesList() {
 
     try {
         const response = await fetch(`${BASE_URL}/services`, {
-            cache: 'no-store',
             next: { revalidate: 60 }
         });
 
@@ -87,7 +86,7 @@ export async function ServicesList() {
                                                 {IconComponent && <IconComponent className="h-8 w-8 text-brand-yellow" />}
                                             </div>
                                         </div>
-                                        <CardTitle className="text-2xl mb-2">{service.title}</CardTitle>
+                                        <CardTitle className="text-2xl capitalize mb-2">{service.title}</CardTitle>
                                         <CardDescription className="text-base">{service.description}</CardDescription>
                                     </CardHeader>
 

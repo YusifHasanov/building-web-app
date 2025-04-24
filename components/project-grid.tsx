@@ -1,7 +1,9 @@
 // resources/js/Components/ProjectGrid.tsx
+'use client';
+import { useState, useEffect } from 'react';
 import Image from "next/image"
 import Link from "next/link"
-import {ArrowUpRight, Calendar, MapPin, Loader2} from "lucide-react"
+import {ArrowUpRight, Calendar, MapPin, Loader2, AlertCircle} from "lucide-react"
 import {Badge} from "@/components/ui/badge"
 import {BASE_URL} from "@/const"
 
@@ -24,44 +26,48 @@ const statusColors: Record<string, string> = {
     "In Planung": "bg-amber-100 text-amber-800"
 };
 
-export async function ProjectGrid() {
-    // Projeleri API'den çek
-    let projects: Project[] = [];
-    let categories: string[] = [];
-    let isLoading = false;
-    let error = null;
+export function ProjectGrid() {
+    const [projects, setProjects] = useState<Project[]>([]);
+    const [categories, setCategories] = useState<string[]>([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
 
-    try {
-        isLoading = true;
-        const response = await fetch(`${BASE_URL}/projects`, {
-            cache: 'no-store',
-            next: {revalidate: 60}
-        });
+    useEffect(() => {
+        const fetchProjects = async () => {
+            setLoading(true);
+            setError(null);
+            try {
+                const response = await fetch(`${BASE_URL}/projects`);
+                if (!response.ok) {
+                    throw new Error(`API Error: ${response.status}`);
+                }
+                const result = await response.json();
 
-        if (!response.ok) {
-            throw new Error(`API yanıt vermedi: ${response.status}`);
-        }
+                if (result && Array.isArray(result.data)) {
+                    setProjects(result.data);
 
-        projects = (await response.json()).data;
-
-        // Kategorileri çıkar
-        const categorySet = new Set<string>();
-        projects.forEach(project => {
-            if (project.category) {
-                categorySet.add(project.category);
+                    const categorySet = new Set<string>();
+                    result.data.forEach((project: Project) => {
+                        if (project.category) {
+                            categorySet.add(project.category);
+                        }
+                    });
+                    setCategories(Array.from(categorySet));
+                } else {
+                    throw new Error("Invalid data format received from API");
+                }
+            } catch (err) {
+                console.error("Failed to fetch projects:", err);
+                setError(err instanceof Error ? err.message : "Unknown error fetching projects");
+            } finally {
+                setLoading(false);
             }
-        });
-        categories = Array.from(categorySet);
+        };
 
-    } catch (err) {
-        error = err instanceof Error ? err.message : String(err);
-        console.error('Projeler yüklenirken hata oluştu:', error);
-    } finally {
-        isLoading = false;
-    }
+        fetchProjects();
+    }, []);
 
-    // Yükleme durumu
-    if (isLoading) {
+    if (loading) {
         return (
             <section className="py-24">
                 <div className="container mx-auto px-4 flex flex-col items-center justify-center h-96">
@@ -72,7 +78,6 @@ export async function ProjectGrid() {
         );
     }
 
-    // Hata durumu
     if (error) {
         return (
             <section className="py-24">
@@ -86,20 +91,7 @@ export async function ProjectGrid() {
         );
     }
 
-    // Veri yoksa
-    if (projects.length === 0) {
-        return (
-            <section className="py-24">
-                <div className="container mx-auto px-4">
-                    <div className="text-center mb-12">
-                        <h2 className="text-4xl font-bold mb-4">Unsere Referenzprojekte</h2>
-                        <div className="w-24 h-1 bg-brand-yellow mx-auto mb-6"></div>
-                        <p className="text-gray-600">Aktuell sind keine Projekte verfügbar.</p>
-                    </div>
-                </div>
-            </section>
-        );
-    }
+    const filteredProjects = projects;
 
     return (
         <section className="py-24">
@@ -112,7 +104,6 @@ export async function ProjectGrid() {
                     </p>
                 </div>
 
-                {/* Kategoriler */}
                 {categories.length > 0 && (
                     <div className="flex justify-center mb-10 flex-wrap gap-2">
                         <Badge variant="outline" className="px-4 py-2 text-base cursor-pointer hover:bg-gray-100">

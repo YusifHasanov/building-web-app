@@ -87,16 +87,16 @@ export function ServicePreview() {
 //             Unsere Leistungen
 //           </h2>
 //           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-//             {services.map((service) => (
+//             {services.map((services) => (
 //                 <div
-//                     key={service.title}
+//                     key={services.title}
 //                     className="flex items-center justify-center bg-white rounded-xl shadow-lg p-6 transition-all duration-300 hover:shadow-xl"
 //                 >
 //                   <div className="flex flex-col items-center">
 //                     <div className="flex items-center justify-center w-20 h-20 rounded-lg bg-gray-100">
-//                       <service.icon className="h-12 w-12 text-gray-700" />
+//                       <services.icon className="h-12 w-12 text-gray-700" />
 //                     </div>
-//                     <h3 className="mt-4 text-xl font-semibold text-gray-900">{service.title}</h3>
+//                     <h3 className="mt-4 text-xl font-semibold text-gray-900">{services.title}</h3>
 //                   </div>
 //                 </div>
 //             ))}

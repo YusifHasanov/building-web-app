@@ -10,6 +10,8 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        'brand-black': '#YourBlackColorCode',
+        'brand-yellow': '#YourYellowColorCode',
         brand: {
           yellow: "#FFD700",
           black: "#1A1A1A",

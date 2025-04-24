@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { useToast } from "@/components/ui/use-toast"
 import { Send, Loader2 } from "lucide-react"
+import {BASE_URL} from "@/const";
 
 export function ContactForm() {
     const [isSubmitting, setIsSubmitting] = useState(false)
@@ -18,36 +19,85 @@ export function ContactForm() {
         subject: "",
         message: ""
     })
+    const [errors, setErrors] = useState<any>({})
 
-    const handleChange = (e) => {
+    const handleChange = (e: any) => {
         const { name, value } = e.target
         setFormData(prev => ({
             ...prev,
             [name]: value
         }))
+
+        // Clear error when user starts typing
+        // @ts-ignore
+        if (errors[name]) {
+            setErrors({
+                ...errors,
+                [name]: null
+            })
+        }
     }
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e: any) => {
         e.preventDefault()
         setIsSubmitting(true)
+        setErrors({})
 
-        // Simulate form submission
-        await new Promise((resolve) => setTimeout(resolve, 1500))
 
-        toast({
-            title: "Nachricht erfolgreich gesendet",
-            description: "Vielen Dank! Wir werden uns in Kürze bei Ihnen melden.",
-            duration: 5000,
-        })
+        const tokenResponse = await fetch( `${BASE_URL}/csrf-token`, {
+            credentials: 'include'
+        });
+        const { token } = await tokenResponse.json();
 
-        setIsSubmitting(false)
-        setFormData({
-            firstName: "",
-            lastName: "",
-            email: "",
-            subject: "",
-            message: ""
-        })
+        try {
+            const response = await fetch(`${BASE_URL}/contact`, {
+                method: "POST",
+                body: JSON.stringify(formData),
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                    'X-CSRF-TOKEN': token
+                },
+                credentials: 'include',
+            })
+
+            toast({
+                title: "Nachricht erfolgreich gesendet",
+                description: "Vielen Dank! Wir werden uns in Kürze bei Ihnen melden.",
+                duration: 5000,
+            })
+
+            // Reset form
+            setFormData({
+                firstName: "",
+                lastName: "",
+                email: "",
+                subject: "",
+                message: ""
+            })
+        } catch (error : any) {
+            console.error('Error submitting form:', error)
+
+            if (error.response && error.response.data && error.response.data.errors) {
+                setErrors(error.response.data.errors)
+
+                toast({
+                    title: "Fehler beim Senden der Nachricht",
+                    description: "Bitte überprüfen Sie Ihre Eingaben und versuchen Sie es erneut.",
+                    variant: "destructive",
+                    duration: 5000,
+                })
+            } else {
+                toast({
+                    title: "Fehler beim Senden der Nachricht",
+                    description: "Es ist ein unerwarteter Fehler aufgetreten. Bitte versuchen Sie es später erneut.",
+                    variant: "destructive",
+                    duration: 5000,
+                })
+            }
+        } finally {
+            setIsSubmitting(false)
+        }
     }
 
     const inputVariants = {
@@ -72,8 +122,9 @@ export function ContactForm() {
                             onChange={handleChange}
                             required
                             placeholder="Max"
-                            className="w-full border-gray-300 focus:ring-yellow-500 focus:border-yellow-500 rounded-lg"
+                            className={`w-full border-gray-300 focus:ring-yellow-500 focus:border-yellow-500 rounded-lg ${errors.firstName ? 'border-red-500' : ''}`}
                         />
+                        {errors.firstName && <p className="mt-1 text-sm text-red-600">{errors.firstName[0]}</p>}
                     </motion.div>
                 </div>
 
@@ -89,8 +140,9 @@ export function ContactForm() {
                             onChange={handleChange}
                             required
                             placeholder="Mustermann"
-                            className="w-full border-gray-300 focus:ring-yellow-500 focus:border-yellow-500 rounded-lg"
+                            className={`w-full border-gray-300 focus:ring-yellow-500 focus:border-yellow-500 rounded-lg ${errors.lastName ? 'border-red-500' : ''}`}
                         />
+                        {errors.lastName && <p className="mt-1 text-sm text-red-600">{errors.lastName[0]}</p>}
                     </motion.div>
                 </div>
 
@@ -107,8 +159,9 @@ export function ContactForm() {
                             onChange={handleChange}
                             required
                             placeholder="ihre-email@beispiel.de"
-                            className="w-full border-gray-300 focus:ring-yellow-500 focus:border-yellow-500 rounded-lg"
+                            className={`w-full border-gray-300 focus:ring-yellow-500 focus:border-yellow-500 rounded-lg ${errors.email ? 'border-red-500' : ''}`}
                         />
+                        {errors.email && <p className="mt-1 text-sm text-red-600">{errors.email[0]}</p>}
                     </motion.div>
                 </div>
 
@@ -123,8 +176,9 @@ export function ContactForm() {
                             value={formData.subject}
                             onChange={handleChange}
                             placeholder="Anfrage für Projekt"
-                            className="w-full border-gray-300 focus:ring-yellow-500 focus:border-yellow-500 rounded-lg"
+                            className={`w-full border-gray-300 focus:ring-yellow-500 focus:border-yellow-500 rounded-lg ${errors.subject ? 'border-red-500' : ''}`}
                         />
+                        {errors.subject && <p className="mt-1 text-sm text-red-600">{errors.subject[0]}</p>}
                     </motion.div>
                 </div>
             </div>
@@ -142,8 +196,9 @@ export function ContactForm() {
                         required
                         rows={6}
                         placeholder="Beschreiben Sie Ihr Anliegen. Wir werden uns umgehend mit Ihnen in Verbindung setzen."
-                        className="w-full border-gray-300 focus:ring-yellow-500 focus:border-yellow-500 rounded-lg"
+                        className={`w-full border-gray-300 focus:ring-yellow-500 focus:border-yellow-500 rounded-lg ${errors.message ? 'border-red-500' : ''}`}
                     />
+                    {errors.message && <p className="mt-1 text-sm text-red-600">{errors.message[0]}</p>}
                 </motion.div>
             </div>
 

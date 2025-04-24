@@ -5,11 +5,21 @@ import {Testimonials} from "@/components/testimonials"
 import ServicePreview from "@/components/FeatureCards";
 import {BASE_URL} from "@/const";
 
+// Add specific metadata for the homepage
+export const metadata = {
+    title: "Baku Bau GmbH - Startseite | Bauunternehmen in Brühl", // Specific title
+    description: "Baku Bau GmbH: Ihr Experte für Hochbau, Sanierung und Modernisierung in Brühl. Entdecken Sie unsere Projekte und kontaktieren Sie uns für Ihr Bauvorhaben.", // Specific description
+    // Optional: Add homepage specific keywords
+    // keywords: ["Bauunternehmen Brühl", "Baku Bau", "Startseite", "Hochbau", "Sanierung"],
+    // Inherits openGraph and twitter from layout, but can override if needed
+    // openGraph: { ... override specific fields ... },
+    // twitter: { ... override specific fields ... },
+};
+
 async function fetchSliderData() {
     const timestamp = new Date().getTime(); // Cache önlemek için timestamp ekle
     const response = await fetch(`${BASE_URL}/slider-images?_t=${timestamp}`, {
-        cache: 'no-store', // Next.js önbelleğini devre dışı bırak
-        next: {revalidate: 0} // Sayfa her istek yapıldığında yeniden doğrula
+        next: {revalidate: 60} // Sayfa her istek yapıldığında yeniden doğrula
     });
 
     if (!response.ok) {
