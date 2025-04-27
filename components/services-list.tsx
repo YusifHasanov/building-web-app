@@ -1,4 +1,6 @@
-// resources/js/Components/ServicesList.tsx
+"use client";
+
+import React, { useState, useEffect } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Building2, Hammer, HardHat, Truck, Shield, CheckCircle } from "lucide-react";
 import { RouteIcon as Road } from "lucide-react";
@@ -32,23 +34,33 @@ const iconComponents: Record<string, React.ComponentType<any>> = {
     Shield: Shield
 };
 
-export async function ServicesList() {
-    // Next.js server component'inde veri çekme
-    let services: Service[] = [];
+export function ServicesList() {
+    const [services, setServices] = useState<Service[]>([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
 
-    try {
-        const response = await fetch(`${BASE_URL}/services`, {
-            next: { revalidate: 60 }
-        });
+    useEffect(() => {
+        async function fetchServices() {
+            try {
+                const response = await fetch(`${BASE_URL}/services`);
 
-        if (!response.ok) {
-            throw new Error(`API yanıt vermedi: ${response.status}`);
+                if (!response.ok) {
+                    throw new Error(`API yanıt vermedi: ${response.status}`);
+                }
+
+                const data = await response.json();
+                setServices(data);
+            } catch (error) {
+                console.error('Hizmetler yüklenirken hata oluştu:', 
+                   error instanceof Error ? error.message : String(error));
+                setError(error instanceof Error ? error.message : String(error));
+            } finally {
+                setLoading(false);
+            }
         }
 
-        services = await response.json();
-    } catch (error) {
-        console.error('Hizmetler yüklenirken hata oluştu:', error instanceof Error ? error.message : String(error));
-    }
+        fetchServices();
+    }, []);
 
     return (
         <section className="py-24">
@@ -61,11 +73,23 @@ export async function ServicesList() {
                     </p>
                 </div>
 
-                {services.length === 0 ? (
+                {loading ? (
                     <div className="flex justify-center items-center h-64">
                         <div className="flex flex-col items-center p-8 rounded-lg bg-gray-50">
                             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-brand-yellow mb-4"></div>
                             <p className="text-gray-600">Daten werden geladen...</p>
+                        </div>
+                    </div>
+                ) : error ? (
+                    <div className="flex justify-center items-center h-64">
+                        <div className="p-8 rounded-lg bg-red-50">
+                            <p className="text-red-600">Fehler: {error}</p>
+                        </div>
+                    </div>
+                ) : services.length === 0 ? (
+                    <div className="flex justify-center items-center h-64">
+                        <div className="p-8 rounded-lg bg-gray-50">
+                            <p className="text-gray-600">Keine Dienstleistungen verfügbar.</p>
                         </div>
                     </div>
                 ) : (

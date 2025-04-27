@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState, useRef, Fragment } from 'react';
-import { parseCookies, setCookie } from 'nookies';
+import {destroyCookie, parseCookies, setCookie} from 'nookies';
 import { Globe, ChevronDown, Check } from 'lucide-react';
 import { Transition } from '@headlessui/react';
 
@@ -12,10 +12,10 @@ interface LanguageDescriptor {
 
 const COOKIE_NAME = 'googtrans';
 
-// Global type declaration (Eğer projenizde global tipler için farklı bir yöntem varsa ona uyarlayın)
+// Global type declaration (Mevcut)
 declare global {
     namespace globalThis {
-        var google: any; // Google Translate nesnesi için tip ekleyelim
+        var google: any;
         var __GOOGLE_TRANSLATION_CONFIG__: {
             languages: LanguageDescriptor[];
             defaultLanguage: string;
@@ -24,7 +24,7 @@ declare global {
 }
 
 const LanguageSwitcher = () => {
-    const [currentLanguage, setCurrentLanguage] = useState<string | null>(null); // Başlangıçta null olabilir
+    const [currentLanguage, setCurrentLanguage] = useState<string | null>(null);
     const [languageConfig, setLanguageConfig] = useState<{
         languages: LanguageDescriptor[];
         defaultLanguage: string;
@@ -33,78 +33,132 @@ const LanguageSwitcher = () => {
     const dropdownRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
-        // Önce global config'i yüklemeye çalışalım
+        // Config'i yükle
         if (globalThis.__GOOGLE_TRANSLATION_CONFIG__) {
             const config = globalThis.__GOOGLE_TRANSLATION_CONFIG__;
             setLanguageConfig(config);
 
-            // Config yüklendikten sonra çerezi oku ve dili ayarla
-            const cookies = parseCookies();
+            // Config yüklendikten sonra çerezi oku
+            const cookies = parseCookies(); // Nookies kullanılıyor
             const existingLanguageCookieValue = cookies[COOKIE_NAME];
-            let languageValue = config.defaultLanguage; // Varsayılan olarak config'deki dil
+            let languageValue = config.defaultLanguage; // Varsayılanla başla
+
+            console.log(`LanguageSwitcher: Initial cookie read: ${existingLanguageCookieValue}`); // Loglama
 
             if (existingLanguageCookieValue) {
+                // Çerezin URL decode edilmiş halini alalım (Nookies bunu otomatik yapabilir)
+                // const decodedCookieValue = decodeURIComponent(existingLanguageCookieValue); // Gerekirse
                 const sp = existingLanguageCookieValue.split('/');
-                // Çerezin formatı /auto/xx veya /en/xx gibi olabilir, son kısım hedef dildir
-                if (sp.length >= 2 && sp[sp.length - 1]) {
-                     // Google bazen /auto/en gibi bir değer bırakır, bazen sadece dil kodunu
-                     // Bizim için önemli olan son kısımdaki hedef dil kodu
-                     const targetLang = sp[sp.length - 1];
-                     // Hedef dilin, desteklediğimiz diller arasında olup olmadığını kontrol edelim
-                     if (config.languages.some(l => l.name === targetLang)) {
+                if (sp.length >= 2) {
+                    // /auto/xx veya /source/xx formatında son kısım hedef dildir
+                    const targetLang = sp[sp.length - 1];
+                    // Hedef dil destekleniyorsa onu kullan
+                    if (targetLang && config.languages.some(l => l.name === targetLang)) {
                         languageValue = targetLang;
-                     }
+                        console.log(`LanguageSwitcher: Determined language from cookie: ${languageValue}`);
+                    } else {
+                        console.warn(`LanguageSwitcher: Cookie language '${targetLang}' not supported or invalid format. Using default: ${config.defaultLanguage}`);
+                        // Desteklenmiyorsa veya format bozuksa varsayılana dön (ve belki çerezi düzelt?)
+                        // Opsiyonel: Burada çerezi /auto/defaultLanguage olarak düzeltebiliriz.
+                        // setCookie(null, COOKIE_NAME, `/auto/${config.defaultLanguage}`, { path: '/', maxAge: 30 * 24 * 60 * 60 });
+                        // languageValue = config.defaultLanguage; // Zaten yukarıda ayarlı
+                    }
+                } else {
+                    console.warn(`LanguageSwitcher: Invalid cookie format '${existingLanguageCookieValue}'. Using default: ${config.defaultLanguage}`);
+                    // Format hatalıysa varsayılana dön ve çerezi düzelt
+                    // setCookie(null, COOKIE_NAME, `/auto/${config.defaultLanguage}`, { path: '/', maxAge: 30 * 24 * 60 * 60 });
+                    // languageValue = config.defaultLanguage; // Zaten yukarıda ayarlı
                 }
+            } else {
+                console.log(`LanguageSwitcher: No cookie found. Using default: ${config.defaultLanguage}. Setting initial cookie.`);
+                // İlk açılışta çerez yoksa, varsayılan dille AYARLA
+                setCookie(null, COOKIE_NAME, `/auto/${config.defaultLanguage}`, {
+                    path: '/',
+                    maxAge: 30 * 24 * 60 * 60, // 30 gün geçerli
+                });
+                languageValue = config.defaultLanguage;
             }
             setCurrentLanguage(languageValue);
 
         } else {
-            // Config henüz yüklenmemişse veya yoksa uyaralım
             console.warn('Google Translation config not found during initial component load.');
-            // Bu durumda geçici bir varsayılan ayarlayabilir veya yüklenene kadar bekleyebiliriz.
-            // Şimdilik null bırakalım, yüklenme durumu gösterilsin.
         }
+
+        // Click outside listener (Mevcut)
+        function handleClickOutside(event: MouseEvent) { /* ... */ }
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => { document.removeEventListener('mousedown', handleClickOutside); };
     }, []); // Sadece ilk renderda çalışır
 
-    useEffect(() => {
-        function handleClickOutside(event: MouseEvent) {
-            if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-                setIsOpen(false);
-            }
-        }
-        document.addEventListener('mousedown', handleClickOutside);
-        return () => {
-            document.removeEventListener('mousedown', handleClickOutside);
-        };
-    }, []);
-
-    // Dil yüklenirken veya config yoksa bir yüklenme göstergesi göster
-    if (!currentLanguage || !languageConfig) {
-        return <div className="h-9 w-28 rounded bg-gray-200 animate-pulse"></div>; // Basit bir placeholder
-    }
-
+    // Dil değiştirme fonksiyonu (Mevcut - Doğru görünüyor)
     const switchLanguage = (lang: string) => {
-        // Çerezi /auto/hedef_dil formatında ayarla. Google bunu okuyacaktır.
-        setCookie(null, COOKIE_NAME, `/auto/${lang}`, {
+        const newCookieValue = `/auto/${lang}`;
+        const cookieOptions = {
             path: '/',
-            maxAge: 30 * 24 * 60 * 60, // 30 gün geçerli
+            // Domain'i belirtmek önemlidir. Tarayıcılar güvenlik nedeniyle
+            // '.bakubau.de' gibi üst domainler için çerez silmeye/yazmaya
+            // her zaman izin vermeyebilir, ancak denemekte fayda var.
+            // Nookies'in varsayılan davranışı genellikle yeterlidir,
+            // ama explicit olmak için deneyebiliriz.
+        };
+        const specificDomainOptions = { ...cookieOptions, domain: 'bakubau.de' };
+        const broaderDomainOptions = { ...cookieOptions, domain: '.bakubau.de' };
+
+
+        console.log(`LanguageSwitcher: Attempting to clear cookies for ${COOKIE_NAME}`);
+
+        // Önce mevcut çerezleri silmeye çalışalım (her iki domain için de)
+        // Not: Nookies `destroyCookie` argümanları (ctx, name, options) şeklindedir. Client-side için ctx null'dır.
+        try {
+            // Spesifik domain için sil
+            destroyCookie(null, COOKIE_NAME, specificDomainOptions);
+            console.log(`Attempted delete for domain: ${specificDomainOptions.domain}`);
+            // Geniş domain için sil (Tarayıcı izin verirse)
+            destroyCookie(null, COOKIE_NAME, broaderDomainOptions);
+            console.log(`Attempted delete for domain: ${broaderDomainOptions.domain}`);
+            // Sadece path ile silmeyi de deneyelim (varsayılan domain için)
+            destroyCookie(null, COOKIE_NAME, { path: '/' });
+            console.log(`Attempted delete for default domain (path only)`);
+
+        } catch (error) {
+            console.error("Error destroying cookies:", error);
+        }
+
+
+        // Kısa bir gecikme ekleyerek silme işleminin tamamlanmasını bekleyebiliriz (genelde gerekmez)
+        // setTimeout(() => {
+        console.log(`LanguageSwitcher: Setting cookie to: ${newCookieValue} for default domain`);
+        // Şimdi doğru çerezi sadece varsayılan/spesifik domain için AYARLA
+        setCookie(null, COOKIE_NAME, newCookieValue, {
+            path: '/',
+            maxAge: 30 * 24 * 60 * 60, // 30 gün
+            // domain: 'bakubau.de' // Gerekirse domain'i burada da belirtebilirsiniz
+            // ama genelde Nookies varsayılanı (mevcut domain) doğrudur.
         });
-        // Sayfayı yeniden yükle ki Google Translate çerezi okuyup çeviriyi uygulasın
-      setTimeout(() => {
-        window.location.reload();
-      }, 500);
+
+        // Sayfayı yeniden yükle
+        setTimeout(() => {
+            window.location.reload();
+        }, 150); // Çok kısa bir gecikme yeterli olmalı
+        // }, 50); // Silme için bekleme gecikmesi (opsiyonel)
+
     };
+
+    // ... (Geri kalan render kısmı aynı) ...
+
+    if (!currentLanguage || !languageConfig) {
+        return <div className="h-9 w-28 rounded bg-gray-200 animate-pulse"></div>;
+    }
 
     const currentLangDescriptor = languageConfig.languages.find(
         (ld) => ld.name === currentLanguage
     );
-
-    // Tanımlayıcı bulunamazsa (normalde olmamalı), dil kodunu göster
-    const currentTitle = currentLangDescriptor ? currentLangDescriptor.title : currentLanguage.toUpperCase();
+    const currentTitle = currentLangDescriptor ? currentLangDescriptor.title : (currentLanguage ? currentLanguage.toUpperCase() : '...'); // currentLanguage null olabilir
 
     const isActive = (langName: string) => {
         return currentLanguage === langName;
     }
+
 
     return (
         <div className="relative inline-block text-left notranslate" ref={dropdownRef}>
@@ -175,4 +229,4 @@ const LanguageSwitcher = () => {
     );
 };
 
-export { LanguageSwitcher, COOKIE_NAME }; // COOKIE_NAME'i dışa aktarabilirsiniz
+export { LanguageSwitcher, COOKIE_NAME };
